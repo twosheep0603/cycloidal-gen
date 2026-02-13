@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <title>擺線減速機 - 動態模擬</title>
+    <!-- Link to an external CSS file -->
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="sidebar">
+    <h2>
+        參數控制台
+    </h2>
+
+    <div class="control-group">
+        <div style="margin-bottom:8px; font-weight:bold; color:#fff;">輸出模式 (Kinematics)</div>
+        <div class="mode-switch">
+            <div class="mode-option active" id="mode-std" onclick="setMode('STD')">標準 (固定針齒)</div>
+            <div class="mode-option" id="mode-rv" onclick="setMode('RV')">RV (固定相位)</div>
+        </div>
+        <div class="info" id="mode-desc">殼體固定，輸出軸連接擺線輪。<br>方向相反，減速比 = Zc</div>
+    </div>
+    
+    <div class="control-group">
+        <label>針齒分度圓 (R) <span id="val-R" class="value-display">80</span> mm</label>
+        <input type="range" id="inp-R" min="10" max="100" value="40">
+    </div>
+
+    <div class="control-group">
+        <label>針齒數 (Zp) <span id="val-Zp" class="value-display">12</span></label>
+        <input type="range" id="inp-Zp" min="4" max="60" step="1" value="12">
+        <div class="info">擺線輪齒數 Zc = Zp - 1</div>
+    </div>
+
+    <div class="control-group">
+        <label>針齒半徑 (rp) <span id="val-rp" class="value-display">5</span> mm</label>
+        <input type="range" id="inp-rp" min="1" max="25" step="0.2" value="3">
+    </div>
+
+    <div class="control-group">
+        <label>偏心量 (e) <span id="val-e" class="value-display">4</span> mm</label>
+        <input type="range" id="inp-e" min="0.5" max="20" step="0.1" value="2">
+        <div class="warning" id="warn-undercut">⚠️ 幾何干涉警告 (根切/迴圈)</div>
+    </div>
+
+    <div class="data-panel">
+        <div class="data-row"><span>減速比 (Ratio):</span> <span id="disp-ratio" class="highlight">11</span></div>
+        <div class="data-row"><span>短幅係數 (K1):</span> <span id="disp-k1" class="highlight">0.6</span></div>
+        <div class="data-row"><span>輸出轉向:</span> <span id="disp-dir" class="highlight">反向</span></div>
+    </div>
+
+    <button class="btn-download" onclick="downloadFreeCADScript()">下載 FreeCAD Python 腳本</button>
+</div>
+
+<div class="viewport" id="viewport">
+    <canvas id="gearCanvas"></canvas>
+    
+    <button class="reset-view-btn" onclick="resetView()">重置視角 (100%)</button>
+
+    <div class="hud">
+        <div class="scale-bar-container">
+            <div class="scale-text" id="scale-text">10 mm</div>
+            <div class="scale-line" id="scale-line" style="width: 50px;"></div>
+        </div>
+    </div>
+</div>
+<!-- Link to an external JavaScript file -->
+<script src="main.js"></script>
+<script src="export.js"></script>
+</body>
+</html>
